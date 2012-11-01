@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "login2", "login2\login2.ccproj", "{DE2D2668-2471-4406-A8F2-7AF49EC53AD9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCFServiceWebRole1", "WCFServiceWebRole1\WCFServiceWebRole1.csproj", "{0E3D90C9-680F-40DB-AB95-F0AB43EE0832}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DE2D2668-2471-4406-A8F2-7AF49EC53AD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE2D2668-2471-4406-A8F2-7AF49EC53AD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE2D2668-2471-4406-A8F2-7AF49EC53AD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE2D2668-2471-4406-A8F2-7AF49EC53AD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E3D90C9-680F-40DB-AB95-F0AB43EE0832}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E3D90C9-680F-40DB-AB95-F0AB43EE0832}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E3D90C9-680F-40DB-AB95-F0AB43EE0832}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E3D90C9-680F-40DB-AB95-F0AB43EE0832}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
