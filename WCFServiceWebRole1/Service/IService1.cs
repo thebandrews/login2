@@ -18,6 +18,9 @@ namespace WCFServiceWebRole1
 
         [OperationContract]
         bool InitUser(String userName, String password);
+
+        [OperationContract]
+        bool SyncData(String userName);
     }
 
 }

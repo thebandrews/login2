@@ -37,8 +37,7 @@ namespace WCFServiceWebRole1
         public string GetHello()
         {
 
-            // Retrieve storage account from connection string
-            //CloudStorageAccount storageAccount = CloudStorageAccount.Parse(ConfigurationManager.ConnectionStrings["FooBarConnectionString"].ConnectionString);
+            // Retrieve storage account from connection string            
             AzureStorage.CloudStorageAccount storageAccount = AzureStorage.CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("FooBarConnectionString"));
 
             // Create the table client
@@ -346,6 +345,81 @@ namespace WCFServiceWebRole1
                     } // end using streamreader
                 } // end using httpwebresponse
             }// end if(newuser)
+
+            return true;
+        }
+
+
+        /// <summary>
+        /// 
+        /// </summary>        
+        /// <returns></returns>
+        public bool SyncData(String userName)
+        {
+
+            string userTable = "users";
+            string teamTable = "teams";
+            string cookieTable = "cookies";
+
+            CookieContainer cookies = new CookieContainer();
+
+
+            //
+            // Retrieve storage account from connection string
+            //
+            AzureStorage.CloudStorageAccount storageAccount = AzureStorage.CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("FooBarConnectionString"));
+
+            //
+            // Create the table client
+            //
+            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
+
+
+            //
+            // Create the user/team/cookie tables if they don't exist
+            //            
+            tableClient.GetTableReference(userTable).CreateIfNotExists();
+            tableClient.GetTableReference(teamTable).CreateIfNotExists();
+            tableClient.GetTableReference(cookieTable).CreateIfNotExists();
+
+            //
+            // Create the CloudTable ojbect that represents the "cookies" table.
+            //
+            CloudTable cookie_table = tableClient.GetTableReference(cookieTable);
+
+
+            //
+            // Create the table query.
+            //
+            TableQuery<CookieEntity> rangeQuery = new TableQuery<CookieEntity>().Where(
+                TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, userName));
+
+
+            //
+            // Loop through the results, building up cookie collection
+            //
+            foreach (CookieEntity entity in cookie_table.ExecuteQuery(rangeQuery))
+            {
+                Cookie cook = new Cookie();
+
+                cook.Value = entity.Value;
+                cook.Path = entity.Path;
+                cook.Domain = entity.Domain;
+
+                cookies.Add(cook);
+
+            }
+
+
+            //
+            // Open Scoreboard page
+            //
+            string url2 = "http://games.espn.go.com/ffl/scoreboard?leagueId=549477&seasonId=2012";
+
+            HttpWebRequest req2 = (HttpWebRequest)WebRequest.Create(url2);
+            req2.CookieContainer = cookies;
+            req2.ContentType = "application/x-www-form-urlencoded";
+            req2.Method = "POST";
 
             return true;
         }
